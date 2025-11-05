@@ -1,0 +1,57 @@
+using Gtk 4.0;
+using Astal 4.0;
+
+template $VShellBar: Astal.Window {
+  CenterBox center {
+    start-widget: Box {
+      spacing: 10;
+
+      Label active_workspace {}
+
+      Separator {}
+
+      Label active_window {
+        max-width-chars: 54;
+        ellipsize: end;
+      }
+    };
+
+    center-widget: Revealer rev {
+      transition-type: slide_up;
+
+      child: Box {
+        spacing: 10;
+
+        Image prog {
+          margin-top: 2;
+          margin-start: 2;
+          margin-end: 2;
+          margin-bottom: 2;
+        }
+
+        Label music_title {
+          ellipsize: end;
+          max-width-chars: 36;
+        }
+      };
+    };
+
+    end-widget: Box {
+      spacing: 10;
+
+      Label date {}
+
+      Box tray {}
+
+      Box {
+        spacing: 10;
+
+        Image audio_icon {}
+
+        Image network_icon {}
+
+        Image bluetooth_icon {}
+      }
+    };
+  }
+}

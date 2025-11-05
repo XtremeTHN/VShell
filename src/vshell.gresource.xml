@@ -1,0 +1,6 @@
+<gresources>
+    <gresource prefix="/com/github/XtremeTHN/VShell">
+        <file preprocess="xml-stripblanks">bar.ui</file>
+        <file>style.css</file>
+    </gresource>
+</gresources>

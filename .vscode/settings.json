@@ -1,0 +1,6 @@
+{
+    "mesonbuild.configureOnOpen": false,
+    "[vala]": {
+        "editor.formatOnSave": false
+    }
+}
