@@ -2,5 +2,7 @@
     "mesonbuild.configureOnOpen": false,
     "[vala]": {
         "editor.formatOnSave": false
-    }
+    },
+    "C_Cpp.default.compileCommands": "/home/axel/Documents/Projects/VShell/builddir/compile_commands.json",
+    "C_Cpp.default.configurationProvider": "mesonbuild.mesonbuild"
 }

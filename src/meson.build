@@ -6,15 +6,18 @@ vshell_sources = [
   'audioicon.vala',
   'networkicon.vala',
   'bluetoothicon.vala',
+  'apprunner.vala',
 ]
 
 vshell_deps = [
   dependency('gtk4'),
   dependency('glib-2.0'),
+  dependency('gio-unix-2.0'),
   dependency('libnm'),
   dependency('gtk4-layer-shell-0'),
   dependency('astal-io-0.1'),
   dependency('astal-4-4.0'),
+  dependency('astal-apps-0.1'),
   dependency('astal-hyprland-0.1'),
   dependency('astal-mpris-0.1'),
   dependency('astal-wireplumber-0.1'),

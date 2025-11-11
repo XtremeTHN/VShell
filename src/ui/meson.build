@@ -3,6 +3,8 @@ blueprints = custom_target(
   input: files(
     # LIST YOUR BLUEPRINT FILES HERE
     'bar.blp',
+    'runner-app-item.blp',
+    'runner.blp',
   ),
   output: '.',
   command: [

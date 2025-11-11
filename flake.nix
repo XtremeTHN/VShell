@@ -22,7 +22,7 @@
         ninja
         vala
         pkg-config
-        wrapGAppsHook
+        wrapGAppsHook4
         blueprint-compiler
       ];
 

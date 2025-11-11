@@ -1,6 +1,8 @@
 <gresources>
     <gresource prefix="/com/github/XtremeTHN/VShell">
         <file preprocess="xml-stripblanks">bar.ui</file>
+        <file preprocess="xml-stripblanks">runner.ui</file>
+        <file preprocess="xml-stripblanks">runner-app-item.ui</file>
         <file>style.css</file>
     </gresource>
 </gresources>
