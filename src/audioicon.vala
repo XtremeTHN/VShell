@@ -12,7 +12,7 @@ public class VShell.Speaker {
   }
 
   bool to_percentage (Binding _, Value from, ref Value to) {
-    to.set_string ((from.get_double () * 100).to_string ());
+    to.set_string ((from.get_double () * 100).to_string () + "%");
     return true;
   }
 

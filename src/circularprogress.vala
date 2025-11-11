@@ -1,4 +1,13 @@
+public enum Color {
+    NORMAL = 0,
+    ERROR = 1,
+    WARNING = 2,
+    SUCCESS = 3
+}
+
 public class CircularProgressPaintable : Object, Gdk.Paintable, Gtk.SymbolicPaintable {
+    public Color color { get; set; default = Color.NORMAL; }
+
     private Gtk.Widget _widget;
     public Gtk.Widget widget {
         get {
@@ -48,7 +57,7 @@ public class CircularProgressPaintable : Object, Gdk.Paintable, Gtk.SymbolicPain
         ctx.translate (width / 2.0, height / 2.0);
         
         // get the normal color
-        var bg = colors[0];
+        var bg = colors[color];
         ctx.set_source_rgba (bg.red, bg.green, bg.blue, bg.alpha);
 
         ctx.arc (0, 0, width / 2.0 + 1, -GLib.Math.PI / 2.0, arc_end);

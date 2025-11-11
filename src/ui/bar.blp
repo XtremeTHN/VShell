@@ -23,6 +23,10 @@ template $VShellBar: Astal.Window {
         spacing: 10;
 
         Image prog {
+          styles [
+            "player-paintable",
+          ]
+
           margin-top: 2;
           margin-start: 2;
           margin-end: 2;
@@ -42,6 +46,8 @@ template $VShellBar: Astal.Window {
       Label date {}
 
       Box tray {}
+
+      Separator {}
 
       Box {
         spacing: 10;
