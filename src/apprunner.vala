@@ -185,7 +185,6 @@ public class VShell.AppRunner : Astal.Window {
             continue;
         }
 
-        print_bool (empty);
         app_box.select_row ((ListBoxRow) app_box.get_first_child ());
     }
 
