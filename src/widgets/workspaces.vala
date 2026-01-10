@@ -54,6 +54,7 @@ public class Workspaces : Gtk.Box {
 
     bool is_focused (WorkspaceWidget widget) {
         assert (widget != null);
+        assert (hypr.focused_workspace != null);
         return widget.id == hypr.focused_workspace.id;
     }
 
