@@ -1,0 +1,16 @@
+@use "../utils.scss";
+
+.bar-window {
+    border-top: 1px solid utils.gtkalpha(var(--window-fg-color), .1);
+    transition: background-color 1s; // this is to "animate" color changing when reloading
+    padding: 8px;
+}
+
+.workspaces {
+    padding: 5px 10px;
+}
+
+.player-paintable {
+    color: var(--accent-color);
+    transition: color 1s; // this is to "animate" color changing when reloading
+}
