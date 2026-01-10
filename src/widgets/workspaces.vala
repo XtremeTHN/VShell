@@ -1,11 +1,13 @@
 class WorkspaceWidget : Adw.Bin {
-    public int id;
+    public int id { get; set; }
     bool _active = false;
 
     public WorkspaceWidget (int id) {
         Object ();
 
         this.id = id;
+        set_valign (Gtk.Align.CENTER);
+        set_halign (Gtk.Align.CENTER);
         add_css_class ("workspace");
     }
 
@@ -68,7 +70,7 @@ public class Workspaces : Gtk.Box {
     }
 
     void on_new_workspace (AstalHyprland.Hyprland? obj, AstalHyprland.Workspace _workspace_data) {
-        if (_workspace_data.id < 0)
+        if (_workspace_data == null || _workspace_data.id <= 0)
             return;
 
         var wk = new WorkspaceWidget (_workspace_data.id);
@@ -78,6 +80,8 @@ public class Workspaces : Gtk.Box {
         
         for (int i = 0; i<_wk_list.length (); i++) {
             var existing_wk = _wk_list.nth_data (i);
+
+            if (existing_wk == null) continue;
 
             if (existing_wk.id > _workspace_data.id) {
                 break;
@@ -98,7 +102,7 @@ public class Workspaces : Gtk.Box {
 
     void on_remove_workspace (AstalHyprland.Hyprland obj, int id) {
         foreach (var item in _wk_list) {
-            if (item.id != id)
+            if (item == null || item.id != id)
                 continue;
 
             remove (item);
