@@ -1,4 +1,9 @@
 namespace VShell {
+    const string RESET = "\033[0m";
+
+    const string INFO = "\033[32m" + "Info" + RESET;
+    const string ERROR = "\033[31m" + "Error" + RESET;
+
     public void print_bool (bool cond) {
         message (cond ? "true" : "false");
     }
@@ -15,7 +20,9 @@ namespace VShell {
         }
 
         void init () {
-            // add (new Bar ());
+            new Workspaces ();
+            
+            add (new Bar ());
             // add (new AppRunner (), true);
         }
 
@@ -48,7 +55,7 @@ namespace VShell {
             }
 
             if (win == null) {
-                cmd.printerr ("Couldn't find a window named: %s", target);
+                cmd.printerr ("%s: Couldn't find a window named: %s\n", ERROR, target);
                 return 1;
             }
 
@@ -57,11 +64,6 @@ namespace VShell {
         }
 
         protected override int command_line (ApplicationCommandLine cmd) {
-            if (!cmd.is_remote) {
-                init ();
-                return 0;
-            }
-
             int exit_code = 0;
 
             bool quit = false;
@@ -72,7 +74,7 @@ namespace VShell {
             var args = cmd.get_arguments ();
 
             if (args.length == 0) {
-                cmd.print_literal ("Already running");
+                cmd.print_literal ("Already running\n");
                 return 1;
             }
 
@@ -91,7 +93,7 @@ namespace VShell {
             try {
                 ctx.parse_strv (ref args);
             } catch (Error e) {
-                cmd.printerr ("Couldn't parse arguments: %s\n", e.message);
+                cmd.printerr ("%s: %s\n", ERROR, e.message);
                 return 2;
             }
 
@@ -100,8 +102,13 @@ namespace VShell {
                 return 0;
             }
 
-            if (print_help)
+            if (print_help) {
                 cmd.print_literal (ctx.get_help (true, null));
+                return 0;
+            }
+
+            if (!cmd.is_remote)
+                init ();
 
             if (target_window != null)
                 exit_code = toggle_window (target_window, cmd);

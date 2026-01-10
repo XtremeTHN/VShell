@@ -3,11 +3,27 @@
 .bar-window {
     border-top: 1px solid utils.gtkalpha(var(--window-fg-color), .1);
     transition: background-color 1s; // this is to "animate" color changing when reloading
-    padding: 8px;
+    padding: 10px;
 }
 
 .workspaces {
     padding: 5px 10px;
+}
+
+.workspace {
+    min-width: 10px;
+    min-height: 10px;
+    border-radius: 100px;
+    background-color: var(--accent-bg-color);
+    transition: min-width 0.2s;
+    
+    &.no-anim {
+        transition: none;
+    }
+    
+    &.active {
+        min-width: 25px;
+    }
 }
 
 .player-paintable {

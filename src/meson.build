@@ -1,4 +1,6 @@
-vshell_sources = ['main.vala', 'bar.vala', 'debug.vala']
+vshell_sources = ['main.vala', 'bar.vala']
+
+subdir('widgets')
 
 vshell_deps = [
   dependency('gtk4'),

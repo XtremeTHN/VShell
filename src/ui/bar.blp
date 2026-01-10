@@ -1,1 +1,24 @@
 using Gtk 4.0;
+using Astal 4.0;
+using Adw 1;
+
+template $Bar: Astal.Window {
+    CenterBox {
+        start-widget: Box left {
+            $Workspaces {}
+
+            // Separator {}
+            // $ActiveWindow {}
+        };
+
+        // center-widget: Box center {
+        //     $Music {}
+        // };
+        // end-widget: Box right {
+        //     Label clock {}
+        //     $AudioIcon {}
+        //     $NetworkIcon {}
+        //     $BluetoothIcon {}
+        // };
+    }
+}
