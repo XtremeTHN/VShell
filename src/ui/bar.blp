@@ -5,10 +5,12 @@ using Adw 1;
 template $Bar: Astal.Window {
     CenterBox {
         start-widget: Box left {
+            spacing: 10;
             $Workspaces {}
 
-            // Separator {}
-            // $ActiveWindow {}
+            Separator {}
+            
+            $ActiveClient {}
         };
 
         // center-widget: Box center {

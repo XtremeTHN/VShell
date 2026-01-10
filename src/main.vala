@@ -21,7 +21,7 @@ namespace VShell {
 
         void init () {
             new Workspaces ();
-            
+            new ActiveClient ();
             add (new Bar ());
             // add (new AppRunner (), true);
         }
