@@ -1,6 +1,5 @@
 using Gtk 4.0;
 using Astal 4.0;
-using Adw 1;
 
 template $Bar: Astal.Window {
     CenterBox {
@@ -19,10 +18,11 @@ template $Bar: Astal.Window {
         };
         
         end-widget: Box right {
-            // $AudioIcon {}
-            // $NetworkIcon {}
-            $BluetoothIcon {}
+            spacing: 10;
             Label clock {}
+            $AudioIcon {}
+            $NetworkIcon {}
+            $BluetoothIcon {}
         };
     }
 }

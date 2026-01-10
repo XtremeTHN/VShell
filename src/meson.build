@@ -1,4 +1,4 @@
-vshell_sources = ['main.vala', 'bar.vala']
+vshell_sources = ['main.vala', 'bar.vala', 'utils.vala']
 
 subdir('widgets')
 

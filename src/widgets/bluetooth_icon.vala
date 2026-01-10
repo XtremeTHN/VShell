@@ -18,7 +18,9 @@ public class BluetoothIcon: Adw.Bin {
             null
         );
 
-        blue.notify["adapter"].connect (on_adapter_change);
+        blue.notify["adapter"].connect (on_adapter_change); 
+
+        set_child (image);
     }
 
     void on_adapter_change () {

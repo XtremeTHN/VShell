@@ -24,6 +24,8 @@ namespace VShell {
             new ActiveClient ();
             new Music ();
             new BluetoothIcon ();
+            new NetworkIcon (); 
+            new AudioIcon ();
             
             add (new Bar ());
             // add (new AppRunner (), true);
