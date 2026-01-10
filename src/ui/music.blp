@@ -1,0 +1,32 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $Music: Adw.Bin {
+    child: Revealer rev {
+        transition-type: slide_left;
+
+        child: Box {
+            spacing: 10;
+
+            Image progress_image {
+                styles [
+                    "player-paintable",
+                ]
+
+                margin-top: 2;
+                margin-start: 2;
+                margin-end: 2;
+                margin-bottom: 2;
+
+                paintable: $CircularProgressPaintable progress_bar {
+                    widget: progress_image;
+                };
+            }
+
+            Label title {
+                ellipsize: end;
+                max-width-chars: 36;
+            }
+        };
+    };
+}

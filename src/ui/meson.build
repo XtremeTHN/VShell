@@ -3,6 +3,7 @@ blueprints = custom_target(
   input: files(
     # LIST YOUR BLUEPRINT FILES HERE
     'bar.blp',
+    'music.blp'
   ),
   output: '.',
   command: [

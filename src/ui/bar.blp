@@ -6,6 +6,7 @@ template $Bar: Astal.Window {
     CenterBox {
         start-widget: Box left {
             spacing: 10;
+
             $Workspaces {}
 
             Separator {}
@@ -13,9 +14,10 @@ template $Bar: Astal.Window {
             $ActiveClient {}
         };
 
-        // center-widget: Box center {
-        //     $Music {}
-        // };
+        center-widget: Box center {
+            $Music {}
+        };
+        
         // end-widget: Box right {
         //     Label clock {}
         //     $AudioIcon {}
