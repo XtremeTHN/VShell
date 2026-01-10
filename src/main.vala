@@ -23,6 +23,7 @@ namespace VShell {
             new Workspaces ();
             new ActiveClient ();
             new Music ();
+            new BluetoothIcon ();
             
             add (new Bar ());
             // add (new AppRunner (), true);
