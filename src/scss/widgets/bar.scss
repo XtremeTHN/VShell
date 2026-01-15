@@ -4,6 +4,7 @@
     border-top: 1px solid utils.gtkalpha(var(--window-fg-color), .1);
     transition: background-color 1s; // this is to "animate" color changing when reloading
     padding: 8px;
+    background-color: utils.gtkalpha(var(--window-bg-color), .5);
 }
 
 .workspaces {
