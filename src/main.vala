@@ -28,7 +28,7 @@ namespace VShell {
             new AudioIcon ();
             
             add (new Bar ());
-            // add (new AppRunner (), true);
+            add (new AppRunner (), true);
         }
 
         void remove_css () {

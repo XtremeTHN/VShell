@@ -6,5 +6,6 @@ vshell_sources += [
     'widgets/music.vala',
     'widgets/audio_icon.vala',
     'widgets/bluetooth_icon.vala',
-    'widgets/network_icon.vala'
+    'widgets/network_icon.vala',
+    'widgets/apprunner.vala'
 ]
