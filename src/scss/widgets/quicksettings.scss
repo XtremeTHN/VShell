@@ -4,27 +4,29 @@
   border-radius: 20px;
 
   padding: 12px 13px;
+  transition: background-color 1s;
 }
 
 .quick-battery {
   border-radius: 20px;
   background-color: var(--card-bg-color);
-}
-
-.quick-buttons button.overlayed {
-  &.checked {
-    color: var(--accent-fg-color);
-    
-  }
-
-  transition: all 0.25s;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
+  transition: background-color 1s;
 }
 
 .quick-buttons {
+  & button.overlayed {
+    &.checked {
+      color: var(--accent-fg-color);
+      
+    }
+
+    transition: all 0.25s;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+
   & .toggle {
     transition: all 0.25s;
     border-radius: 20px;
@@ -51,6 +53,7 @@
   & scale,
   scale * {
     all: unset;
+    transition: background-color 1s;
   }
 
   & scale>trough {

@@ -5,6 +5,7 @@
         <file preprocess="xml-stripblanks">runner.ui</file>
         <file preprocess="xml-stripblanks">quick-slider.ui</file>
         <file preprocess="xml-stripblanks">quick-button.ui</file>
+        <file preprocess="xml-stripblanks">quick-battery.ui</file>
         <file preprocess="xml-stripblanks">quicksettings.ui</file>
         <file preprocess="xml-stripblanks">runner-app-item.ui</file>
 
@@ -25,6 +26,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/down-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/screenshot-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/network-wired-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/nix-symbolic.svg</file>
 
         <file>style.css</file>
     </gresource>

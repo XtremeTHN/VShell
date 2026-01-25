@@ -22,6 +22,7 @@ namespace Quick {
         new Quick.Bluetooth ();
         new PowerMode ();
         new Tray ();
+        new Battery ();
         new Settings ();
     }
 }

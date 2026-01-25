@@ -13,23 +13,8 @@ template $QuickSettings: Astal.Window {
         Box {
             spacing: 10;
             hexpand: true;
-            // battery box
-            Box {
-                styles [
-                    "box-10",
-                    "quick-battery",
-                ]
 
-                spacing: 10;
-
-                Image battery_icon {
-                    icon-name: "battery-good-symbolic";
-                }
-
-                Label battery_percentage {
-                    label: "56%";
-                }
-            }
+            $QuickBattery {}
 
             // buttons box
             Box {
