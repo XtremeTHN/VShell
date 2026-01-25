@@ -1,0 +1,31 @@
+using Gtk 4.0;
+
+template $QuickSlider: Box {
+    styles [
+        "quickslider",
+    ]
+
+    Overlay {
+        child: Scale scale {
+            adjustment: Adjustment {
+                upper: bind template.max;
+                lower: 0;
+                step-increment: 1;
+            };
+
+            hexpand: true;
+        };
+
+        [overlay]
+        Image icon {
+            halign: start;
+            icon-name: bind template.icon-name;
+            margin-start: 10;
+        }
+    }
+
+    Button {
+        halign: end;
+        icon-name: "right-symbolic";
+    }
+}

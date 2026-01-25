@@ -1,0 +1,44 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $QuickButton: Adw.Bin {
+    child: Overlay {
+        child: $QuickToggleButton button {
+            child: Box content {
+                spacing: 10;
+
+                Image icon {
+                    icon-name: bind template.icon-name;
+                }
+
+                Box {
+                    orientation: vertical;
+
+                    Label {
+                        label: bind template.heading;
+                        xalign: 0;
+                    }
+
+                    Label body_widget {
+                        styles [
+                            "caption",
+                        ]
+
+                        label: bind template.body;
+                        xalign: 0;
+                    }
+                }
+            };
+        };
+
+        [overlay]
+        Button end_button {
+            styles [
+                "overlayed",
+            ]
+
+            halign: end;
+            icon-name: "right-symbolic";
+        }
+    };
+}

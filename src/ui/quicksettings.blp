@@ -1,0 +1,142 @@
+using Gtk 4.0;
+using Astal 4.0;
+
+template $QuickSettings: Astal.Window {
+    styles [
+        "quick-window",
+    ]
+
+    Box {
+        orientation: vertical;
+        spacing: 15;
+        // top box
+        Box {
+            spacing: 10;
+            hexpand: true;
+            // battery box
+            Box {
+                styles [
+                    "box-10",
+                    "quick-battery",
+                ]
+
+                spacing: 10;
+
+                Image battery_icon {
+                    icon-name: "battery-good-symbolic";
+                }
+
+                Label battery_percentage {
+                    label: "56%";
+                }
+            }
+
+            // buttons box
+            Box {
+                styles [
+                    "buttons",
+                ]
+
+                spacing: 8;
+                hexpand: true;
+                halign: end;
+                valign: center;
+
+                Button {
+                    styles [
+                        "circular",
+                    ]
+
+                    icon-name: "screenshot-symbolic";
+                    // clicked => $on_screenshot_clicked();
+                }
+
+                Button {
+                    styles [
+                        "circular",
+                    ]
+
+                    icon-name: "settings-symbolic";
+                    // clicked => $on_settings_clicked();
+                }
+
+                Button {
+                    styles [
+                        "circular",
+                    ]
+
+                    icon-name: "lock-symbolic";
+                    // clicked => $on_lock_clicked();
+                }
+
+                Button {
+                    styles [
+                        "circular",
+                    ]
+
+                    icon-name: "system-shutdown-symbolic";
+                    // clicked => $on_power_clicked();
+                }
+            }
+        }
+
+        // Sliders box
+        Box {
+            orientation: vertical;
+            spacing: 10;
+
+            $QuickSlider {
+                icon-name: "audio-volume-high-symbolic";
+                max: 150;
+            }
+
+            $QuickSlider {
+                icon-name: "display-brightness-medium-symbolic";
+                max: 100;
+            }
+        }
+
+        // middle buttons box
+        Box {
+            spacing: 5;
+            homogeneous: true;
+            // column 0
+            Box {
+                styles [
+                    "quick-buttons",
+                ]
+
+                spacing: 10;
+                orientation: vertical;
+
+                $QuickInternet {
+                    heading: "Internet";
+                }
+
+                $QuickPowerMode {
+                    heading: "Power Mode";
+                }
+            }
+
+            // column 1
+            Box {
+                styles [
+                    "quick-buttons",
+                ]
+
+                spacing: 10;
+                orientation: vertical;
+                homogeneous: true;
+
+                $QuickBluetooth {
+                    heading: "Bluetooth";
+                }
+
+                $QuickTray {
+                    heading: "System Tray";
+                    icon-name: "background-app-symbolic";
+                }
+            }
+        }
+    }
+}

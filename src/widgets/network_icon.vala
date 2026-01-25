@@ -5,9 +5,7 @@ public class Network : Object {
     public string tooltip_text { get; set; }
     public string icon_name { get; set; }
 
-    public Network () {
-        Object ();
-
+    construct {
         net = AstalNetwork.get_default ();
 
         net.notify["wifi"].connect (on_device_change);
@@ -20,11 +18,9 @@ public class Network : Object {
         var state = (AstalNetwork.DeviceState) from.get_enum ();
         switch (state) {
             case AstalNetwork.DeviceState.ACTIVATED:
-                //  to = "Connected (wired)";
                 to.set_string ("Connected (wired)");
                 break;
             case AstalNetwork.DeviceState.DEACTIVATING:
-                //  to = "Disconnecting...";
                 to.set_string ("Disconnecting...");
                 break;
             case AstalNetwork.DeviceState.DISCONNECTED:
@@ -62,18 +58,21 @@ public class NetworkIcon: Adw.Bin {
     Gtk.Image image;
     Network net;
 
+    public Binding tooltip_binding;
+    public Binding icon_binding;
+
     construct {
         image = new Gtk.Image ();
         net = new Network ();
 
-        net.bind_property (
+        tooltip_binding = net.bind_property (
             "tooltip-text",
             image,
             "tooltip-text",
             BindingFlags.SYNC_CREATE
         );
 
-        net.bind_property (
+        icon_binding = net.bind_property (
             "icon-name",
             image,
             "icon-name",

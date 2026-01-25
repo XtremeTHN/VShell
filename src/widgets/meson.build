@@ -7,5 +7,12 @@ vshell_sources += [
     'widgets/audio_icon.vala',
     'widgets/bluetooth_icon.vala',
     'widgets/network_icon.vala',
-    'widgets/apprunner.vala'
+    'widgets/apprunner.vala',
+    'widgets/quicksettings.vala',
+    'widgets/quick_slider.vala',
+    'widgets/quick_button.vala',
+    'widgets/quick_internet.vala',
+    'widgets/quick_bluetooth.vala',
+    'widgets/quick_power_mode.vala',
+    'widgets/quick_tray.vala',
 ]

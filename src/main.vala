@@ -20,14 +20,19 @@ namespace VShell {
         }
 
         void init () {
+            new Quick.ToggleButton ();
+
             new Workspaces ();
             new ActiveClient ();
             new Music ();
             new BluetoothIcon ();
-            new NetworkIcon (); 
+            new NetworkIcon ();
             new AudioIcon ();
+
+            Quick.register_types ();
             
             add (new Bar ());
+            add (new Quick.Settings ());
             add (new AppRunner (), true);
         }
 

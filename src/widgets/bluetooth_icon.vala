@@ -2,6 +2,9 @@ public class BluetoothIcon: Adw.Bin {
     Gtk.Image image;
     AstalBluetooth.Bluetooth blue;
 
+    public bool hide_when_null = true;
+    public bool _has_tooltip = true;
+
     construct {
         image = new Gtk.Image ();
         blue = AstalBluetooth.Bluetooth.get_default ();
@@ -27,12 +30,16 @@ public class BluetoothIcon: Adw.Bin {
         var adapter = blue.adapter;
         
         if (adapter == null) {
-            image.set_visible (false);
+            if (hide_when_null)
+                image.set_visible (false);
+
             return;
         }
 
         image.set_visible (true);
-        image.set_tooltip_text (adapter.powered ? "Enabled" : "Disabled");
+
+        if (_has_tooltip)
+            image.set_tooltip_text (adapter.powered ? "Enabled" : "Disabled");
     }
 }
 
