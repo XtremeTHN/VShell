@@ -10,6 +10,7 @@ vshell_sources += [
     'widgets/apprunner.vala',
     'widgets/quicksettings.vala',
     'widgets/quick_slider.vala',
+    'widgets/quick_audio_slider.vala',
     'widgets/quick_button.vala',
     'widgets/quick_internet.vala',
     'widgets/quick_bluetooth.vala',

@@ -45,30 +45,18 @@ class AudioController: Gtk.Popover {
 }
 
 public class AudioIcon: Adw.Bin {
-    AudioController pop;
-    Gtk.Image image;
-    AstalWp.Wp wp;
+    public Gtk.Image image;
+    Audio audio;
+
+    public bool _has_tooltip = true;
 
     construct {
-        pop = new AudioController ();
-        pop.set_has_arrow (false);
-        wp = AstalWp.get_default ();
-
-        var click = new Gtk.GestureClick ();
-        click.released.connect (on_click);
-
+        audio = new Audio ();
         image = new Gtk.Image ();
 
-        image.add_controller (click);
-
-        Utils.on_notify (wp, "audio", on_audio_obj_change);
+        Utils.on_notify (audio, "speaker", on_speaker_change);
 
         set_child (image);
-        pop.set_parent (this);
-    }
-
-    void on_click (Gtk.GestureClick obj, int n_press, double x, double y) {
-        pop.popup ();
     }
 
     bool to_percentage (Binding _, Value from, ref Value to) {
@@ -76,24 +64,9 @@ public class AudioIcon: Adw.Bin {
         return true;
     }
 
-    void on_audio_obj_change () {
-        var audio = wp.audio;
-
-        if (audio == null) {
-            warning ("Audio is null. Not binding icon");
-            pop.speaker = null;
-            return;
-        }
-
-        pop.speaker = audio.default_speaker;
-
-        if (audio.default_speaker == null) {
-            warning ("No default speaker");
-            image.set_from_icon_name ("audio-volume-muted-symbolic");
-            return;
-        }
-
-        audio.default_speaker.bind_property ("volume", image, "tooltip-text", BindingFlags.SYNC_CREATE, to_percentage, null);
-        audio.default_speaker.bind_property ("volume-icon", image, "icon-name", BindingFlags.SYNC_CREATE, null, null);
+    void on_speaker_change () {
+        if (_has_tooltip)
+            audio.speaker.bind_property ("volume", image, "tooltip-text", BindingFlags.SYNC_CREATE, to_percentage, null);
+        audio.speaker.bind_property ("volume-icon", image, "icon-name", BindingFlags.SYNC_CREATE, null, null);
     }
 }

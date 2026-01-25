@@ -17,6 +17,7 @@ namespace Quick {
         new ToggleButton ();
         new Button ();
         new Slider ();
+        new AudioSlider ();
         new Internet ();
         new Quick.Bluetooth ();
         new PowerMode ();
