@@ -1,4 +1,4 @@
-vshell_sources = ['main.vala', 'audio.vala', 'network.vala', 'utils.vala']
+vshell_sources = ['main.vala', 'audio.vala', 'network.vala', 'backlight.vala', 'utils.vala']
 cc = meson.get_compiler('c')
 
 

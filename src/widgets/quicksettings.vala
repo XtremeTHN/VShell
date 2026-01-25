@@ -18,6 +18,7 @@ namespace Quick {
         new Button ();
         new Slider ();
         new AudioSlider ();
+        new BacklightSlider ();
         new Internet ();
         new Quick.Bluetooth ();
         new PowerMode ();
