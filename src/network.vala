@@ -4,6 +4,7 @@ public class Network : Object {
 
     public string tooltip_text { get; set; }
     public string icon_name { get; set; }
+    public bool active { get; set; }
 
     construct {
         net = AstalNetwork.get_default ();
@@ -14,24 +15,26 @@ public class Network : Object {
         on_device_change ();
     }
 
-    bool on_state_change (Binding _, Value from, ref Value to) {
-        var state = (AstalNetwork.DeviceState) from.get_enum ();
+    void on_state_change (AstalNetwork.DeviceState state) {
         switch (state) {
             case AstalNetwork.DeviceState.ACTIVATED:
-                to.set_string ("Connected (wired)");
+                tooltip_text = "Connected (wired)";
+                active = true;
                 break;
             case AstalNetwork.DeviceState.DEACTIVATING:
-                to.set_string ("Disconnecting...");
+                tooltip_text = "Disconnecting...";
+                active = true;
                 break;
             case AstalNetwork.DeviceState.DISCONNECTED:
-                to.set_string ("Disconnected");
+                tooltip_text = "Disconnected";
+                active = false;
                 break;
             default:
-                to.set_string("Unknown");
+                tooltip_text = "Unknown";
+                active = false;
                 message ("Unknown state: %s", state.to_string ());
                 break;
         }
-        return true;
     }
 
     void bind_icon (Object obj) {
@@ -39,17 +42,24 @@ public class Network : Object {
     }
 
     void on_device_change () {
-        if (net.wifi != null && net.wired == null) {
+        var wifi = net.wifi;
+        var wired = net.wired;
+        if (wifi != null && wired == null) {
             message ("Wifi device detected");
-            net.wifi.bind_property ("ssid", this, "tooltip-text", BindingFlags.SYNC_CREATE, null, null);
-            bind_icon (net.wifi);
+            wifi.bind_property ("ssid", this, "tooltip-text", BindingFlags.SYNC_CREATE, null, null);
+            Utils.on_notify (wifi, "state", () => {
+                on_state_change (wifi.state);
+            });
+            bind_icon (wifi);
         }
 
         // wired will take precedence
-        if (net.wired != null) {
+        if (wired != null) {
             message ("Wired device detected");
-            net.wired.bind_property ("state", this, "tooltip-text", BindingFlags.SYNC_CREATE, on_state_change, null);
-            bind_icon (net.wired);
+            Utils.on_notify (wired, "state", () => {
+                on_state_change (wired.state);
+            });
+            bind_icon (wired);
         }
     }
 }

@@ -12,6 +12,12 @@
 }
 
 .quick-buttons button.overlayed {
+  &.checked {
+    color: var(--accent-fg-color);
+    
+  }
+
+  transition: all 0.25s;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   border-top-left-radius: 0px;
@@ -20,6 +26,7 @@
 
 .quick-buttons {
   & .toggle {
+    transition: all 0.25s;
     border-radius: 20px;
     padding: 6px 15px;
   }

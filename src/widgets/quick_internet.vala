@@ -9,5 +9,8 @@ public class Quick.Internet: Button {
         set_icon_widget (icon);
 
         net.bind_property ("tooltip-text", this, "body", BindingFlags.SYNC_CREATE);
+        net.bind_property ("active", this.button, "active", BindingFlags.SYNC_CREATE);
+
+        // TODO: implement net powering off
     }
 }

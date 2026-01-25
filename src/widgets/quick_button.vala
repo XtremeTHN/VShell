@@ -53,8 +53,8 @@ public class Quick.Button: Adw.Bin {
 
     void on_active () {
         if (button.active)
-            end_button.add_css_class ("active");
+            end_button.add_css_class ("checked");
         else
-            end_button.remove_css_class ("active");
+            end_button.remove_css_class ("checked");
     }
 }
