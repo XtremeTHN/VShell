@@ -11,6 +11,6 @@ public class Quick.PowerMode: Button {
 
     void on_active_changed () {
         button.active = power.active_profile != "balanced";
-        body = power.active_profile;
+        body = Utils.to_title (power.active_profile);
     }
 }
