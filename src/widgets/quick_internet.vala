@@ -11,9 +11,12 @@ public class Quick.Internet: Button {
         net.bind_property ("tooltip-text", this, "body", BindingFlags.SYNC_CREATE);
         net.bind_property ("active", this.button, "active", BindingFlags.SYNC_CREATE);
 
-        // TODO: implement net powering off
+        button.clicked.connect (on_click);
 
         //  show_menu.connect (on_show);
     }
 
+    void on_click () {
+        net.active = !net.active;
+    }
 }

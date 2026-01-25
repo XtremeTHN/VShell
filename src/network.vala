@@ -4,7 +4,19 @@ public class Network : Object {
 
     public string tooltip_text { get; set; }
     public string icon_name { get; set; }
-    public bool active { get; set; }
+    
+    bool _active = false;
+    public bool active {
+        get {
+            return _active;
+        }
+        set {
+            if (net.wifi != null) {
+                net.wifi.enabled = value;
+                _active = value;
+            }
+        }
+    }
 
     construct {
         net = AstalNetwork.get_default ();
@@ -19,22 +31,24 @@ public class Network : Object {
         switch (state) {
             case AstalNetwork.DeviceState.ACTIVATED:
                 tooltip_text = "Connected (wired)";
-                active = true;
+                _active = true;
                 break;
             case AstalNetwork.DeviceState.DEACTIVATING:
                 tooltip_text = "Disconnecting...";
-                active = true;
+                _active = true;
                 break;
             case AstalNetwork.DeviceState.DISCONNECTED:
                 tooltip_text = "Disconnected";
-                active = false;
+                _active = false;
                 break;
             default:
                 tooltip_text = "Unknown";
-                active = false;
+                _active = false;
                 message ("Unknown state: %s", state.to_string ());
                 break;
         }
+
+        notify_property ("active");
     }
 
     void bind_icon (Object obj) {
