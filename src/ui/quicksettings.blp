@@ -6,121 +6,130 @@ template $QuickSettings: Astal.Window {
         "quick-window",
     ]
 
-    Box {
-        orientation: vertical;
-        spacing: 15;
-        // top box
-        Box {
-            spacing: 10;
-            hexpand: true;
+    Overlay ovrl {
+        child: Box {
+            styles [
+                "quick-content",
+            ]
 
-            $QuickBattery {}
-
-            // buttons box
-            Box {
-                styles [
-                    "buttons",
-                ]
-
-                spacing: 8;
-                hexpand: true;
-                halign: end;
-                valign: center;
-
-                Button {
-                    styles [
-                        "circular",
-                    ]
-
-                    icon-name: "screenshot-symbolic";
-                    // clicked => $on_screenshot_clicked();
-                }
-
-                Button {
-                    styles [
-                        "circular",
-                    ]
-
-                    icon-name: "settings-symbolic";
-                    // clicked => $on_settings_clicked();
-                }
-
-                Button {
-                    styles [
-                        "circular",
-                    ]
-
-                    icon-name: "lock-symbolic";
-                    // clicked => $on_lock_clicked();
-                }
-
-                Button {
-                    styles [
-                        "circular",
-                    ]
-
-                    icon-name: "system-shutdown-symbolic";
-                    // clicked => $on_power_clicked();
-                }
-            }
-        }
-
-        // Sliders box
-        Box {
             orientation: vertical;
-            spacing: 10;
-
-            $QuickAudioSlider {
-                max: 100;
-            }
-
-            $QuickBacklightSlider {
-                icon-name: "display-brightness-medium-symbolic";
-                max: 100;
-            }
-        }
-
-        // middle buttons box
-        Box {
-            spacing: 5;
-            homogeneous: true;
-            // column 0
+            spacing: 15;
+            // top box
             Box {
-                styles [
-                    "quick-buttons",
-                ]
-
                 spacing: 10;
-                orientation: vertical;
+                hexpand: true;
+                valign: start;
 
-                $QuickInternet {
-                    heading: "Internet";
+                $QuickBattery {}
+
+                // buttons box
+                Box {
+                    styles [
+                        "buttons",
+                    ]
+
+                    spacing: 8;
+                    hexpand: true;
+                    halign: end;
+                    valign: center;
+
+                    Button {
+                        styles [
+                            "circular",
+                        ]
+
+                        icon-name: "screenshot-symbolic";
+                        // clicked => $on_screenshot_clicked();
+                    }
+
+                    Button {
+                        styles [
+                            "circular",
+                        ]
+
+                        icon-name: "settings-symbolic";
+                        // clicked => $on_settings_clicked();
+                    }
+
+                    Button {
+                        styles [
+                            "circular",
+                        ]
+
+                        icon-name: "lock-symbolic";
+                        // clicked => $on_lock_clicked();
+                    }
+
+                    Button {
+                        styles [
+                            "circular",
+                        ]
+
+                        icon-name: "system-shutdown-symbolic";
+                        // clicked => $on_power_clicked();
+                    }
+                }
+            }
+
+            // Sliders box
+            Box {
+                orientation: vertical;
+                valign: center;
+                spacing: 10;
+
+                $QuickAudioSlider {
+                    max: 100;
                 }
 
-                $QuickPowerMode {
-                    heading: "Power Mode";
+                $QuickBacklightSlider {
+                    icon-name: "display-brightness-medium-symbolic";
+                    max: 100;
                 }
             }
 
-            // column 1
+            // middle buttons box
             Box {
-                styles [
-                    "quick-buttons",
-                ]
-
-                spacing: 10;
-                orientation: vertical;
+                spacing: 5;
+                valign: end;
                 homogeneous: true;
+                // column 0
+                Box {
+                    styles [
+                        "quick-buttons",
+                    ]
 
-                $QuickBluetooth {
-                    heading: "Bluetooth";
+                    spacing: 10;
+                    orientation: vertical;
+
+                    $QuickInternet {
+                        heading: "Internet";
+                    }
+
+                    $QuickPowerMode {
+                        heading: "Power Mode";
+                    }
                 }
 
-                $QuickTray {
-                    heading: "System Tray";
-                    icon-name: "background-app-symbolic";
+                // column 1
+                Box {
+                    styles [
+                        "quick-buttons",
+                    ]
+
+                    spacing: 10;
+                    orientation: vertical;
+                    homogeneous: true;
+
+                    $QuickBluetooth {
+                        heading: "Bluetooth";
+                    }
+
+                    $QuickTray {
+                        heading: "System Tray";
+                        icon-name: "background-app-symbolic";
+                    }
                 }
             }
-        }
+        };
     }
 }

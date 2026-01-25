@@ -12,4 +12,8 @@ namespace Utils {
     public string to_title (string str) {
         return str.substring (0, 1).ascii_up () + str.substring (1);
     }
+
+    public Astal.Window get_window (Gtk.Widget self) {
+        return (Astal.Window) self.get_root ();
+    }
 }

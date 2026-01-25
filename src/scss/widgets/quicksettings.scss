@@ -1,10 +1,19 @@
+@use "../utils.scss";
+
 .quick-window {
   outline: 1px solid rgb(255 255 255 / 7%);
   outline-offset: -1px;
   border-radius: 20px;
 
-  padding: 12px 13px;
   transition: background-color 1s;
+}
+
+.quick-content {
+  padding: 12px 13px;
+}
+
+.quick-overlay-background {
+  background-color: utils.gtkalpha(var(--window-bg-color), .6);
 }
 
 .quick-battery {

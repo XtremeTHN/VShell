@@ -42,6 +42,8 @@ public class Quick.Button: Adw.Bin {
     public string heading { get; set; }
     public string body { get; set; }
 
+    public signal void show_menu ();
+
     construct {
         button.notify["active"].connect (on_active);
     }
@@ -56,5 +58,10 @@ public class Quick.Button: Adw.Bin {
             end_button.add_css_class ("checked");
         else
             end_button.remove_css_class ("checked");
+    }
+
+    [GtkCallback]
+    void on_end_clicked () {
+        show_menu ();
     }
 }

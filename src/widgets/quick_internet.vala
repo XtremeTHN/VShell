@@ -12,5 +12,8 @@ public class Quick.Internet: Button {
         net.bind_property ("active", this.button, "active", BindingFlags.SYNC_CREATE);
 
         // TODO: implement net powering off
+
+        //  show_menu.connect (on_show);
     }
+
 }
