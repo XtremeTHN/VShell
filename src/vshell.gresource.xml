@@ -3,7 +3,29 @@
         <file preprocess="xml-stripblanks">bar.ui</file>
         <file preprocess="xml-stripblanks">music.ui</file>
         <file preprocess="xml-stripblanks">runner.ui</file>
+        <file preprocess="xml-stripblanks">quick-slider.ui</file>
+        <file preprocess="xml-stripblanks">quick-button.ui</file>
+        <file preprocess="xml-stripblanks">quicksettings.ui</file>
         <file preprocess="xml-stripblanks">runner-app-item.ui</file>
+
+        <file preprocess="xml-stripblanks">icons/scalable/actions/display-brightness-medium-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/lock-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/settings-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/power-profile-balanced-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/network-wireless-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/system-shutdown-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/power-profile-performance-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/battery-good-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/background-app-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/power-profile-power-saver-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/down-large-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/bluetooth-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/right-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/audio-volume-high-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/down-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/screenshot-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/network-wired-symbolic.svg</file>
+
         <file>style.css</file>
     </gresource>
 </gresources>
