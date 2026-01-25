@@ -4,6 +4,9 @@ public class Audio: Object {
 
     public AstalWp.Endpoint? speaker { get; set; }
 
+    public string icon_name { get; set; }
+    public double volume { get; set; }
+
     construct {
         wp = AstalWp.get_default ();
         Utils.on_notify (wp, "audio", on_audio_changed);
@@ -25,5 +28,8 @@ public class Audio: Object {
         }
 
         speaker = audio.default_speaker;
+
+        speaker.bind_property ("volume", this, "volume", BindingFlags.SYNC_CREATE);
+        speaker.bind_property ("volume-icon", this, "icon-name", BindingFlags.SYNC_CREATE);
     }
 }
