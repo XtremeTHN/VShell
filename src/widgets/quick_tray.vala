@@ -9,6 +9,11 @@ public class Quick.Tray: Button {
     }
 
     void on_tray_changed () {
-        body = "%u apps running".printf(tray.items_model.get_n_items ());
+        var length = tray.items_model.get_n_items ();
+        string letter = "";
+        if (length > 1)
+            letter = "s";
+
+        body = "%u app%s running".printf(length, letter);
     }
 }
