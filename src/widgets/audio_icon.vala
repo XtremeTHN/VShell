@@ -48,25 +48,17 @@ public class AudioIcon: Adw.Bin {
     public Gtk.Image image;
     Audio audio;
 
-    public bool _has_tooltip = true;
-
     construct {
         audio = new Audio ();
         image = new Gtk.Image ();
 
-        Utils.on_notify (audio, "speaker", on_speaker_change);
-
+        audio.speaker.bind_property ("volume", image, "tooltip-text", BindingFlags.SYNC_CREATE, to_percentage, null);
+        audio.speaker.bind_property ("volume-icon", image, "icon-name", BindingFlags.SYNC_CREATE, null, null);
         set_child (image);
     }
 
     bool to_percentage (Binding _, Value from, ref Value to) {
         to.set_string ((from.get_double () * 100).to_string () + "%");
         return true;
-    }
-
-    void on_speaker_change () {
-        if (_has_tooltip)
-            audio.speaker.bind_property ("volume", image, "tooltip-text", BindingFlags.SYNC_CREATE, to_percentage, null);
-        audio.speaker.bind_property ("volume-icon", image, "icon-name", BindingFlags.SYNC_CREATE, null, null);
     }
 }
