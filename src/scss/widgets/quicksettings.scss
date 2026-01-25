@@ -37,6 +37,11 @@
 }
 
 .quickslider {
+  & image {
+    &.high {
+      color: var(--accent-fg-color);
+    }
+  }
 
   & scale,
   scale * {
@@ -58,9 +63,5 @@
 
   & scale>trough highlight {
     background-color: var(--accent-bg-color);
-  }
-
-  &.low {
-    color: var(--accent-fg-color);
   }
 }
