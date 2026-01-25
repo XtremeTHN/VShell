@@ -8,4 +8,8 @@ namespace Utils {
         
         callback ();
     }
+
+    public string to_title (string str) {
+        return str.substring (0, 1).ascii_up () + str.substring (1);
+    }
 }
