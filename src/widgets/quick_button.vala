@@ -1,14 +1,9 @@
 public class Quick.ToggleButton: Gtk.Button {
-    public bool is_locked { get; set; }
-
     public bool active {
         get {
             return has_css_class ("checked");
         }
         set {
-            if (is_locked)
-                return;
-
             if (value)
                 add_css_class ("checked");
             else
@@ -42,6 +37,8 @@ public class Quick.Button: Adw.Bin {
     public string heading { get; set; }
     public string body { get; set; }
 
+    public Menu menu { get; set; }
+
     public signal void show_menu ();
 
     construct {
@@ -51,7 +48,7 @@ public class Quick.Button: Adw.Bin {
     public void set_icon_widget (Gtk.Widget icon) {
         content.remove(this.icon);
         content.prepend (icon);
-    } 
+    }
 
     void on_active () {
         if (button.active)
@@ -63,5 +60,8 @@ public class Quick.Button: Adw.Bin {
     [GtkCallback]
     void on_end_clicked () {
         show_menu ();
+
+        if (menu != null)
+            menu.present ((Settings) Utils.get_window (this));
     }
 }

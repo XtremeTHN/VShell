@@ -8,13 +8,12 @@ public class Quick.TrayMenu: Menu {
         icon_name = "background-app-symbolic";
         placeholder_title = "No apps running";
         placeholder_icon_name = icon_name;
+        has_end_buttons = false;
 
         tray = AstalTray.get_default ();
 
         set_model (tray.items_model, create_widget);
 
-        sep.set_visible (false);
-        end_box.set_visible (false);
     }
 
     void on_button_clicked (Gtk.PopoverMenu menu, AstalTray.TrayItem item) {
@@ -57,21 +56,13 @@ public class Quick.TrayMenu: Menu {
 
 public class Quick.Tray: Button {
     AstalTray.Tray tray;
-    TrayMenu menu;
     
     construct {
-        button.is_locked = true;
         tray = AstalTray.get_default ();
         menu = new TrayMenu ();
 
         tray.items_model.items_changed.connect (on_tray_changed);
         on_tray_changed ();
-
-        show_menu.connect (on_show_menu);
-    }
-
-    void on_show_menu () {
-        menu.present ((Settings) Utils.get_window (this));
     }
 
     void on_tray_changed () {

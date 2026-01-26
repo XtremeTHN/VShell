@@ -19,6 +19,14 @@ public class Quick.Menu: Dialog {
     public string placeholder_title { get; set; }
     public string placeholder_description { get; set; }
 
+    public bool has_end_buttons {
+        set {
+            end_box.visible = value;
+            sep.visible = value;
+        }
+    }
+
+
     public void set_model (ListModel model, Gtk.ListBoxCreateWidgetFunc new_widget) {
         listbox.bind_model (model, new_widget);
         model.items_changed.connect (on_item_change);
