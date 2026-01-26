@@ -8,6 +8,34 @@
   transition: background-color 1s;
 }
 
+.dialog {
+  & button {
+    font-weight: normal;
+  }
+
+  & .compact {
+    & .icon {
+      -gtk-icon-size: 40px;
+      margin-bottom: 0px;
+    }
+  }
+
+  background-color: var(--dialog-bg-color);
+  outline: 1px solid rgb(255 255 255 / 15%);
+  padding: 15px;
+}
+
+.accent-icon {
+  background-color: var(--accent-bg-color);
+  color: var(--accent-fg-color);
+
+  padding: 10px;
+}
+
+.accent-icon.circular {
+  border-radius: 99px;
+}
+
 .quick-content {
   padding: 12px 13px;
 }

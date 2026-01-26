@@ -12,14 +12,35 @@ class Background: Gtk.Box {
 }
 
 public class Dialog: Adw.Bin {
-    Gtk.Overlay ovrl;
-    Gtk.Revealer rev;
+    Gtk.Overlay ovrl = new Gtk.Overlay ();
+    Gtk.Revealer rev = new Gtk.Revealer ();
+    
+    Gtk.Widget _content;
 
-    public Dialog () {
-        Object ();
+    new Quick.Settings? parent;
 
-        rev = new Gtk.Revealer ();
-        ovrl = new Gtk.Overlay ();
+    public Gtk.Widget? content {
+        get {
+            return _content;
+        }
+
+        set {
+            value.set_margin_top (10);
+            value.set_margin_bottom (10);
+            value.set_margin_start (10);
+            value.set_margin_end (10);
+
+            value.set_halign (Gtk.Align.CENTER);
+            value.set_valign (Gtk.Align.CENTER);
+
+            ovrl.add_overlay (value);
+            ovrl.set_measure_overlay (value, true);
+
+            _content = value;
+        }
+    }
+
+    construct {
         var bg = new Background ();
         ovrl.set_child (bg);
 
@@ -28,32 +49,35 @@ public class Dialog: Adw.Bin {
 
         rev.set_child (ovrl);
         base.set_child (rev);
+
+        var gesture = new Gtk.GestureClick ();
+        bg.add_controller (gesture);
+
+        gesture.released.connect (on_click_released);
     }
 
-    public new void set_child (Gtk.Widget widget) {
-        widget.set_margin_top (10);
-        widget.set_margin_bottom (10);
-        widget.set_margin_start (10);
-        widget.set_margin_end (10);
+    void on_click_released (Gtk.GestureClick gesture, int n_press, double x, double y) {
+        if (content == null) {
+            warning ("no child");
+            return;
+        }
 
-        widget.add_css_class ("adwaita-window");
-        widget.add_css_class ("background");
-
-        widget.set_halign (Gtk.Align.CENTER);
-        widget.set_valign (Gtk.Align.CENTER);
-
-        ovrl.add_overlay (widget);
-        ovrl.set_measure_overlay (widget, true);
+        close ();
     }
 
     public void present (Quick.Settings win) {
         win.add_overlay (this);
         rev.set_reveal_child (true);
+
+        parent = win;
     }
 
-    public void close (SourceFunc cb) {
+    public void close () {
         rev.set_reveal_child (false);
-        Timeout.add (590, cb, Priority.HIGH);
+        Timeout.add (590, () => {
+            parent.pop_overlay ();
+            return false;
+        }, Priority.HIGH);
     }
 }
 
@@ -83,8 +107,10 @@ namespace Quick {
         }
 
         public void on_key_released (Gtk.EventControllerKey _, uint keyval, uint keycode, Gdk.ModifierType state) {
-            if (keyval == Gdk.Key.Escape)
-                pop_overlay ();
+            if (keyval != Gdk.Key.Escape || current_diag == null)
+                return;
+            
+            current_diag.close ();
         }
 
         public void add_overlay (Dialog diag) {
@@ -103,11 +129,9 @@ namespace Quick {
                 warning ("no current dialog");
                 return;
             }
-            current_diag.close (() => {
-                ovrl.remove_overlay (current_diag);
-                current_diag = null;
-                return false;
-            });
+            
+            ovrl.remove_overlay (current_diag);
+            current_diag = null;
         }
     }
 
@@ -122,6 +146,8 @@ namespace Quick {
         new PowerMode ();
         new Tray ();
         new Battery ();
+        new Dialog ();
+        new Menu ();
         new Settings ();
     }
 }

@@ -6,6 +6,7 @@
         <file preprocess="xml-stripblanks">quick-slider.ui</file>
         <file preprocess="xml-stripblanks">quick-button.ui</file>
         <file preprocess="xml-stripblanks">quick-battery.ui</file>
+        <file preprocess="xml-stripblanks">quick-menu.ui</file>
         <file preprocess="xml-stripblanks">quicksettings.ui</file>
         <file preprocess="xml-stripblanks">runner-app-item.ui</file>
 

@@ -16,6 +16,7 @@ vshell_sources += [
     'widgets/quick_internet.vala',
     'widgets/quick_bluetooth.vala',
     'widgets/quick_power_mode.vala',
+    'widgets/quick_menu.vala',
     'widgets/quick_backlight_slider.vala',
     'widgets/quick_tray.vala',
 ]

@@ -12,7 +12,11 @@
 }
 
 
-.noback-widget {
+.transparent {
+    & row {
+        background-color: transparent;
+    }
+    
     background-color: transparent;
 }
 

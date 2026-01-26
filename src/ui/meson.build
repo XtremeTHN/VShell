@@ -9,6 +9,7 @@ blueprints = custom_target(
     'quick-slider.blp',
     'quick-button.blp',
     'quick-battery.blp',
+    'quick-menu.blp',
     'runner-app-item.blp',
   ),
   output: '.',

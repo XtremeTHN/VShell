@@ -1,0 +1,76 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $QuickMenu: $Dialog {
+    content: Box {
+        styles [
+            "quick-window",
+            "dialog",
+        ]
+
+        orientation: vertical;
+        width-request: 350;
+        spacing: 10;
+
+        Box {
+            spacing: 10;
+
+            Image {
+                styles [
+                    "circular",
+                    "accent-icon",
+                ]
+
+                pixel-size: 24;
+                icon-name: bind template.icon-name;
+            }
+
+            Label {
+                styles [
+                    "title-2",
+                ]
+
+                label: bind template.heading;
+            }
+        }
+
+        ScrolledWindow {
+            propagate-natural-height: true;
+            max-content-height: 200;
+
+            child: Stack stack {
+                StackPage {
+                    name: "placeholder";
+
+                    child: Adw.StatusPage {
+                        styles [
+                            "compact",
+                        ]
+
+                        icon-name: bind template.placeholder-icon-name;
+                        title: bind template.placeholder-title;
+                        description: bind template.placeholder-description;
+                    };
+                }
+
+                StackPage {
+                    name: "main";
+
+                    child: ListBox listbox {
+                        styles [
+                            "transparent",
+                        ]
+
+                        selection-mode: none;
+                    };
+                }
+            };
+        }
+
+        Separator sep {
+            margin-top: 10;
+        }
+
+        Box end_box {}
+    };
+}
