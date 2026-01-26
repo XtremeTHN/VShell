@@ -29,6 +29,8 @@
   background-color: var(--accent-bg-color);
   color: var(--accent-fg-color);
 
+  transition: background-color 1s ease-in-out, color 1s ease-in-out;
+
   padding: 10px;
 }
 
