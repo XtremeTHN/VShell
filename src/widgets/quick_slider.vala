@@ -4,7 +4,12 @@ public class Quick.Slider: Gtk.Box {
     public unowned Gtk.Scale scale;
 
     [GtkChild]
+    public unowned Gtk.Button end_button;
+
+    [GtkChild]
     public unowned Gtk.Overlay ovr;
+
+    public Menu? menu;
 
     Gtk.Widget icon;
     
@@ -40,6 +45,12 @@ public class Quick.Slider: Gtk.Box {
 
     construct {
         scale.value_changed.connect (on_value_changed);
+    }
+
+    [GtkCallback]
+    void on_end_clicked () {
+        if (menu == null) return;
+        menu.present ((Settings) Utils.get_window (this));
     }
 
     public void set_icon_widget (Gtk.Widget icon) {

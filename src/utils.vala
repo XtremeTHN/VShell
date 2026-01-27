@@ -18,6 +18,8 @@ namespace Utils {
         return theme.has_icon (icon_name);
     }
 
+    //  public 
+
     public Astal.Window get_window (Gtk.Widget self) {
         return (Astal.Window) self.get_root ();
     }

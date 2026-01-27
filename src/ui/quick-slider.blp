@@ -17,8 +17,9 @@ template $QuickSlider: Box {
         };
     }
 
-    Button {
+    Button end_button {
         halign: end;
+        clicked => $on_end_clicked();
         icon-name: "right-symbolic";
     }
 }
