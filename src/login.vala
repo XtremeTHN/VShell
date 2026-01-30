@@ -67,7 +67,11 @@ public class Logind: Object {
     public bool can_suspend () {
         try {
             var res = call (proxy, "CanSuspend", null);
-            return res.get_boolean ();
+            if (res.n_children () == 0)
+                return false;
+                
+            return res.get_child_value (0).get_string () == "yes";
+            //  return res.get_string (null) == "yes";
         } catch (Error e) {
             return false;
         }
