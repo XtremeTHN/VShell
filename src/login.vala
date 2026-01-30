@@ -1,22 +1,37 @@
+interface IManager: DBusProxy {
+    public signal void PrepareForSleep (bool start);
+
+    public abstract string[] CanSuspend ();
+    public abstract void PowerOff (bool interactive);
+    public abstract void Reboot (bool interactive);
+    public abstract void Suspend (bool interactive);
+}
+
+interface ISession: DBusProxy {
+    public abstract string Id { get; set; }
+
+    public abstract void Terminate ();
+}
+
 public errordomain LogindErrors {
     PROXY_NULL
 }
 
 [SingleInstance]
 public class Logind: Object {
-    DBusProxy proxy;
-    DBusProxy session_proxy;
+    IManager proxy;
+    ISession session_proxy;
+
+    public signal void sleep ();
+    public signal void wake ();
     
     construct {
         try {
-            proxy = new DBusProxy.for_bus_sync (
+            proxy = Bus.get_proxy_sync (
                 BusType.SYSTEM,
-                DBusProxyFlags.NONE,
-                null,
                 "org.freedesktop.login1",
                 "/org/freedesktop/login1",
-                "org.freedesktop.login1.Manager",
-                null
+                DBusProxyFlags.NONE
             );
         } catch (Error e) {
             critical ("Couldn't get login manager dbus proxy: %s", e.message);
@@ -24,14 +39,11 @@ public class Logind: Object {
         }
 
         try {
-            session_proxy = new DBusProxy.for_bus_sync (
+            session_proxy = Bus.get_proxy_sync (
                 BusType.SYSTEM,
-                DBusProxyFlags.NONE,
-                null,
                 "org.freedesktop.login1",
                 "/org/freedesktop/login1/session/auto",
-                "org.freedesktop.login1.Session",
-                null
+                DBusProxyFlags.NONE
             );
         } catch (Error e) {
             critical ("Couldn't get login session dbus proxy: %s", e.message);
@@ -39,56 +51,29 @@ public class Logind: Object {
         }
     }
 
-    // FIXME: if this blocks too much, use async methods
-    Variant call (DBusProxy? proxy, string method, Variant? args) throws Error {
-        if (proxy == null) {
-            critical ("proxy is null");
-            throw new LogindErrors.PROXY_NULL ("proxy is null");
-        }
-        
-        try {
-            return proxy.call_sync (
-                method,
-                args,
-                DBusCallFlags.NONE,
-                -1
-            );
-        } catch (Error e) {
-            critical ("Error while calling %s in %s: %s", method, proxy.get_interface_name (), e.message);
-            throw e;
-        }
-    }
-
-    Variant get_boolean_variant (bool value) {
-        bool[] args = {value};
-        return new Variant ("(b)", args);
-    }
-    
     public bool can_suspend () {
-        try {
-            var res = call (proxy, "CanSuspend", null);
-            if (res.n_children () == 0)
-                return false;
-                
-            return res.get_child_value (0).get_string () == "yes";
-            //  return res.get_string (null) == "yes";
-        } catch (Error e) {
+        if (proxy.CanSuspend ()[0] != "yes")
             return false;
-        }
+        
+        return true;
     }
 
     public void suspend () throws Error {
         if (!can_suspend ())
             return;
 
-        call (proxy, "Suspend", get_boolean_variant (false));
+        proxy.Suspend (false);
     }
 
     public void power_off () throws Error {
-        call (proxy, "PowerOff", get_boolean_variant (false));
+        proxy.PowerOff (false);
+    }
+
+    public void reboot () {
+        proxy.Reboot (false);
     }
 
     public void log_out () throws Error {
-        call (proxy, "Terminate", null);
+        session_proxy.Terminate ();
     }
 }
