@@ -1,6 +1,12 @@
-vshell_sources = ['main.vala', 'audio.vala', 'network.vala', 'backlight.vala', 'utils.vala']
+vshell_sources = [
+  'main.vala',
+  'audio.vala',
+  'login.vala',
+  'network.vala',
+  'backlight.vala',
+  'utils.vala',
+]
 cc = meson.get_compiler('c')
-
 
 subdir('widgets')
 math_dep = cc.find_library('m', required: true)
@@ -24,7 +30,7 @@ vshell_deps = [
   dependency('astal-battery-0.1'),
   dependency('astal-power-profiles-0.1'),
   dependency('libadwaita-1', version: '>= 1.4'),
-  math_dep
+  math_dep,
 ]
 
 subdir('ui')
