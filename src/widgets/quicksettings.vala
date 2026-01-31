@@ -200,6 +200,7 @@ namespace Quick {
         Dialog current_diag;
 
         PowerMenu power_menu;
+        Logind login;
 
         public Settings () {
             Object (
@@ -213,6 +214,7 @@ namespace Quick {
             );
 
             power_menu = new PowerMenu ();
+            login = Logind.get_instance ();
 
             var key = new Gtk.EventControllerKey ();
             ovrl.add_controller (key);
@@ -223,6 +225,13 @@ namespace Quick {
         [GtkCallback]
         void on_power_clicked () {
             power_menu.present (this);
+        }
+        
+
+        // TODO: exec a screen lock
+        [GtkCallback]
+        void on_lock_clicked () {
+            //  Utils.try_func (login.lock, "Couldn't lock the session");
         }
 
         public void on_key_released (Gtk.EventControllerKey _, uint keyval, uint keycode, Gdk.ModifierType state) {
