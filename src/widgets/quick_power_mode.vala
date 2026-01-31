@@ -72,7 +72,10 @@ public class Quick.PowerMode: Button {
     }
 
     void on_active_changed () {
-        button.active = power.active_profile != "balanced";
+        var active = power.active_profile != "balanced";
+        button.active = active;
+        menu.active = active;
+        
         body = Utils.to_title (power.active_profile.replace ("-", " "));
     }
 }

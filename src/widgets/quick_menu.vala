@@ -15,6 +15,23 @@ public class Quick.Menu: Dialog {
     [GtkChild]
     public unowned Adw.StatusPage placeholder;
 
+    [GtkChild]
+    unowned Gtk.Image icon;
+
+
+    bool _active = false;
+    public bool active {
+        get {
+            return _active;
+        }
+        set {
+            if (value)
+                icon.add_css_class ("active");
+            else
+                icon.remove_css_class ("active");
+            _active = value;
+        }
+    }
     public string icon_name { get; set; }
     public string heading { get; set; }
 
