@@ -3,6 +3,7 @@
         <file preprocess="xml-stripblanks">bar.ui</file>
         <file preprocess="xml-stripblanks">music.ui</file>
         <file preprocess="xml-stripblanks">runner.ui</file>
+        <file preprocess="xml-stripblanks">alert-window.ui</file>
         <file preprocess="xml-stripblanks">quick-slider.ui</file>
         <file preprocess="xml-stripblanks">quick-button.ui</file>
         <file preprocess="xml-stripblanks">quick-battery.ui</file>

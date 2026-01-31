@@ -1,5 +1,6 @@
 namespace Utils {
     public delegate void NotiftySignalHandler ();
+    public delegate void SimpleFunction () throws Error;
 
     public class SafeSignal {
         Object? obj;
@@ -39,7 +40,13 @@ namespace Utils {
         return theme.has_icon (icon_name);
     }
 
-    //  public 
+    public void try_func (SimpleFunction func, string error_msg) {
+        try {
+            func ();
+        } catch (Error e) {
+            critical (@"$error_msg: $(e.message)");
+        }
+    }
 
     public Astal.Window get_window (Gtk.Widget self) {
         return (Astal.Window) self.get_root ();

@@ -34,3 +34,21 @@
     margin: .5rem 1rem .5rem 1rem;
     border-radius: 16px;
 }
+
+.alert-dialog {
+  border-radius: 16px;
+
+  & > box {
+    padding: 20px;
+    border-radius: 16px;
+    background-color: var(--card-bg-color);
+  }
+}
+
+.alert-dialog button {
+  padding: 8px 5px;
+}
+
+.alert-background {
+    background-color: utils.gtkalpha(black, 0.5);
+}
