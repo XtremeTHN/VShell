@@ -1,12 +1,33 @@
 namespace Utils {
     public delegate void NotiftySignalHandler ();
 
-    public void on_notify (Object obj, string prop, NotiftySignalHandler callback) {
-        obj.notify[prop].connect (() => {
+    public class SafeSignal {
+        Object? obj;
+        ulong? id;
+        public SafeSignal (Object obj, ulong id) {
+            this.obj = obj;
+            this.id = id;
+        }
+
+        ~SafeSignal () {
+            disconnect ();
+            obj = null;
+            id = null;
+        }
+
+        public void disconnect () {
+            obj.disconnect (id);
+        }
+    }
+
+    public ulong on_notify (Object obj, string prop, NotiftySignalHandler callback) {
+        ulong id = obj.notify[prop].connect (() => {
             callback ();
         });
         
         callback ();
+
+        return id;
     }
 
     public string to_title (string str) {
