@@ -106,6 +106,13 @@ namespace Quick {
             key.key_released.connect (on_key_released);
         }
 
+        [GtkCallback]
+        void on_power_clicked () {
+            var l = new Logind ();
+            l.suspend ();
+            message ("asd");
+        }
+
         public void on_key_released (Gtk.EventControllerKey _, uint keyval, uint keycode, Gdk.ModifierType state) {
             if (keyval != Gdk.Key.Escape || current_diag == null)
                 return;
