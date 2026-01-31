@@ -110,7 +110,6 @@ namespace Quick {
         void on_power_clicked () {
             var l = new Logind ();
             l.suspend ();
-            message ("asd");
         }
 
         public void on_key_released (Gtk.EventControllerKey _, uint keyval, uint keycode, Gdk.ModifierType state) {
