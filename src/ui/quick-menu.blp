@@ -1,7 +1,7 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $QuickMenu: $Dialog {
+template $QuickMenu: $QuickDialog {
     content: Box {
         styles [
             "quick-window",
@@ -15,13 +15,13 @@ template $QuickMenu: $Dialog {
         Box {
             spacing: 10;
 
-            Image {
+            Image icon {
                 styles [
                     "circular",
                     "accent-icon",
                 ]
 
-                pixel-size: 24;
+                pixel-size: 22;
                 icon-name: bind template.icon-name;
             }
 
@@ -42,7 +42,7 @@ template $QuickMenu: $Dialog {
                 StackPage {
                     name: "placeholder";
 
-                    child: Adw.StatusPage {
+                    child: Adw.StatusPage placeholder {
                         styles [
                             "compact",
                         ]
@@ -68,10 +68,10 @@ template $QuickMenu: $Dialog {
             };
         }
 
-        Separator sep {
-            margin-top: 10;
-        }
+        Separator sep {}
 
-        Box end_box {}
+        Box end_box {
+            hexpand: true;
+        }
     };
 }

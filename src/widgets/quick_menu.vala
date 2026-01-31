@@ -12,6 +12,26 @@ public class Quick.Menu: Dialog {
     [GtkChild]
     public unowned Gtk.Box end_box;
 
+    [GtkChild]
+    public unowned Adw.StatusPage placeholder;
+
+    [GtkChild]
+    unowned Gtk.Image icon;
+
+
+    bool _active = false;
+    public bool active {
+        get {
+            return _active;
+        }
+        set {
+            if (value)
+                icon.add_css_class ("active");
+            else
+                icon.remove_css_class ("active");
+            _active = value;
+        }
+    }
     public string icon_name { get; set; }
     public string heading { get; set; }
 
@@ -39,10 +59,6 @@ public class Quick.Menu: Dialog {
     }
 
     public void pack_end (Gtk.Widget widget) {
-        var empty = end_box.get_first_child () == null;
-        sep.set_visible (!empty);
-        end_box.set_visible (!empty);
-
         end_box.append (widget);
     }
 }

@@ -2,7 +2,7 @@ public class Quick.Internet: Button {
     Network net;
 
     construct {
-        net = new Network ();
+        net = Network.get_instance ();
         net.bind_property ("icon-name", this, "icon-name", BindingFlags.SYNC_CREATE);
 
         net.bind_property ("tooltip-text", this, "body", BindingFlags.SYNC_CREATE);

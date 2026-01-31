@@ -5,6 +5,7 @@ blueprints = custom_target(
     'bar.blp',
     'music.blp',
     'runner.blp',
+    'alert-window.blp',
     'quicksettings.blp',
     'quick-slider.blp',
     'quick-button.blp',

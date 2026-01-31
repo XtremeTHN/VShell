@@ -7,7 +7,7 @@ public class NetworkIcon: Adw.Bin {
 
     construct {
         image = new Gtk.Image ();
-        net = new Network ();
+        net = Network.get_instance ();
 
         tooltip_binding = net.bind_property (
             "tooltip-text",

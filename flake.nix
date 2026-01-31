@@ -55,6 +55,7 @@
 
         packages = with pkgs; [
           gdb
+          d-spy
           uncrustify
           vala-language-server
         ];

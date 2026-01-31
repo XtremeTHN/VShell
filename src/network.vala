@@ -1,8 +1,13 @@
-[SingleInstance]
-public class Network : Object {
-    public AstalNetwork.Network net;
+public class Network: Object {
+    private static GLib.Once<Network> instance;
 
-    public string tooltip_text { get; set; }
+    public static Network get_instance () {
+        return instance.once (() => {
+            return new Network ();
+        });
+    }
+
+    public string tooltip_text { get; set; default = "Unknown"; }
     public string icon_name { get; set; }
     
     bool _active = false;
@@ -18,62 +23,66 @@ public class Network : Object {
         }
     }
 
-    construct {
-        net = AstalNetwork.get_default ();
+    AstalNetwork.Network net;
 
-        net.notify["wifi"].connect (on_device_change);
-        net.notify["wired"].connect (on_device_change);
+    Network () {
+        Object ();
 
-        on_device_change ();
+        net = AstalNetwork.Network.get_default ();
+
+        Utils.on_notify (net, "state", on_state_change);
+        Utils.on_notify (net, "primary", on_primary_change);
     }
 
-    void on_state_change (AstalNetwork.DeviceState state) {
-        switch (state) {
-            case AstalNetwork.DeviceState.ACTIVATED:
-                tooltip_text = "Connected (wired)";
+    void bind_props (AstalNetwork.Primary type) {
+        Object? obj = null;
+        if (type == AstalNetwork.Primary.WIFI) {
+            obj = net.wifi;
+            obj.bind_property ("ssid", this, "tooltip-text", BindingFlags.SYNC_CREATE);
+        } else
+            obj = net.wired;
+
+        obj.bind_property ("icon-name", this, "icon-name", BindingFlags.SYNC_CREATE, null, null);
+    }
+
+    void on_primary_change () {
+        bind_props (net.primary);
+    }
+
+    void on_state_change () {
+        switch (net.state) {
+            case AstalNetwork.State.CONNECTED_GLOBAL:
+            case AstalNetwork.State.CONNECTED_LOCAL:
+            case AstalNetwork.State.CONNECTED_SITE:
+                tooltip_text = "Connected";
                 _active = true;
                 break;
-            case AstalNetwork.DeviceState.DEACTIVATING:
+
+            case AstalNetwork.State.CONNECTING:
+                tooltip_text = "Connecting...";
+                _active = false;
+                break;
+
+            case AstalNetwork.State.DISCONNECTING:
                 tooltip_text = "Disconnecting...";
                 _active = true;
                 break;
-            case AstalNetwork.DeviceState.DISCONNECTED:
+
+            case AstalNetwork.State.DISCONNECTED:
                 tooltip_text = "Disconnected";
                 _active = false;
                 break;
+
+            case AstalNetwork.State.ASLEEP:
+                break;
+
             default:
                 tooltip_text = "Unknown";
                 _active = false;
-                message ("Unknown state: %s", state.to_string ());
+                message ("Unknown state: %s", net.state.to_string ());
                 break;
         }
 
         notify_property ("active");
-    }
-
-    void bind_icon (Object obj) {
-        obj.bind_property ("icon-name", this, "icon-name", BindingFlags.SYNC_CREATE, null, null);
-    }
-
-    void on_device_change () {
-        var wifi = net.wifi;
-        var wired = net.wired;
-        if (wifi != null && wired == null) {
-            message ("Wifi device detected");
-            wifi.bind_property ("ssid", this, "tooltip-text", BindingFlags.SYNC_CREATE, null, null);
-            Utils.on_notify (wifi, "state", () => {
-                on_state_change (wifi.state);
-            });
-            bind_icon (wifi);
-        }
-
-        // wired will take precedence
-        if (wired != null) {
-            message ("Wired device detected");
-            Utils.on_notify (wired, "state", () => {
-                on_state_change (wired.state);
-            });
-            bind_icon (wired);
-        }
     }
 }

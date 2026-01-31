@@ -1,0 +1,39 @@
+using Gtk 4.0;
+using Astal 4.0;
+using Adw 1;
+
+template $AlertWindow: Astal.Window {
+    styles [
+        "alert-dialog",
+    ]
+
+    Box {
+        orientation: vertical;
+        spacing: 20;
+
+        Label {
+            styles [
+                "title-2",
+            ]
+
+            margin-top: 10;
+            label: bind template.heading;
+        }
+
+        Adw.Clamp {
+            child: Label {
+                label: bind template.body;
+                wrap: true;
+                wrap-mode: word_char;
+                justify: center;
+            };
+
+            maximum-size: 340;
+        }
+
+        Box button_box {
+            homogeneous: true;
+            spacing: 15;
+        }
+    }
+}
