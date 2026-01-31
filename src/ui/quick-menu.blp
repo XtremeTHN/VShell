@@ -21,7 +21,7 @@ template $QuickMenu: $Dialog {
                     "accent-icon",
                 ]
 
-                pixel-size: 24;
+                pixel-size: 22;
                 icon-name: bind template.icon-name;
             }
 
@@ -42,7 +42,7 @@ template $QuickMenu: $Dialog {
                 StackPage {
                     name: "placeholder";
 
-                    child: Adw.StatusPage {
+                    child: Adw.StatusPage placeholder {
                         styles [
                             "compact",
                         ]
@@ -68,10 +68,10 @@ template $QuickMenu: $Dialog {
             };
         }
 
-        Separator sep {
-            margin-top: 10;
-        }
+        Separator sep {}
 
-        Box end_box {}
+        Box end_box {
+            hexpand: true;
+        }
     };
 }
