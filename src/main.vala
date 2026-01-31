@@ -32,7 +32,7 @@ namespace VShell {
             Quick.register_types ();
             
             add (new Bar ());
-            add (new Quick.Settings ());
+            add (new Quick.Settings (), true);
             add (new AppRunner (), true);
         }
 
