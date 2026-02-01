@@ -12,6 +12,7 @@ blueprints = custom_target(
     'quick-battery.blp',
     'quick-menu.blp',
     'runner-app-item.blp',
+    'notification.blp',
   ),
   output: '.',
   command: [

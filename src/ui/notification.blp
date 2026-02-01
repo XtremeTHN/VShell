@@ -1,0 +1,119 @@
+using Gtk 4.0;
+
+template $Notification: ListBoxRow {
+    child: Box {
+        styles [
+            "box-10",
+            "item",
+        ]
+
+        spacing: 5;
+        orientation: vertical;
+
+        CenterBox {
+            start-widget: Box {
+                spacing: 5;
+                hexpand: true;
+
+                Image {
+                    styles [
+                        "dimmed",
+                    ]
+
+                    icon-name: bind template.app-icon;
+                }
+
+                Label {
+                    styles [
+                        "heading",
+                        "dimmed",
+                    ]
+
+                    label: bind template.app-name;
+                }
+
+                Label {
+                    styles [
+                        "caption",
+                        "dimmed",
+                    ]
+
+                    label: bind template.timestamp;
+                }
+            };
+
+            end-widget: Box {
+                spacing: 10;
+
+                Button {
+                    styles [
+                        "diag-btt",
+                    ]
+
+                    visible: bind template.shell-expired;
+                    icon-name: "down-symbolic";
+                    clicked => $toggle_reveal_actions();
+                }
+
+                Button {
+                    styles [
+                        "diag-btt",
+                    ]
+
+                    icon-name: "window-close-symbolic";
+                    clicked => $dismiss();
+                }
+            };
+        }
+
+        Box {
+            spacing: 10;
+
+            Frame {
+                styles [
+                    "frame",
+                ]
+
+                visible: bind template.has-image;
+
+                Overlay {
+                    width-request: 60;
+                    height-request: 60;
+
+                    [overlay]
+                    Picture {
+                        content-fit: cover;
+                        paintable: bind template.image-paintable;
+                    }
+                }
+            }
+
+            Box {
+                orientation: vertical;
+                spacing: 7;
+
+                Label {
+                    styles [
+                        "heading",
+                    ]
+
+                    label: bind template.heading;
+                    xalign: 0;
+                }
+
+                Label {
+                    label: bind template.body;
+                    xalign: 0;
+                }
+            }
+        }
+
+        Revealer {
+            reveal-child: bind template.reveal-actions;
+
+            child: Box actions_box {
+                homogeneous: true;
+            };
+        }
+    };
+}

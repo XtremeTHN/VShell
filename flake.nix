@@ -46,6 +46,7 @@
         pkgs.gtk4
         pkgs.gtk4-layer-shell
         pkgs.libadwaita
+        pkgs.libgee
       ];
 
     in

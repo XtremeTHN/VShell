@@ -10,6 +10,7 @@
         <file preprocess="xml-stripblanks">quick-menu.ui</file>
         <file preprocess="xml-stripblanks">quicksettings.ui</file>
         <file preprocess="xml-stripblanks">runner-app-item.ui</file>
+        <file preprocess="xml-stripblanks">notification.ui</file>
 
         <file preprocess="xml-stripblanks">icons/scalable/actions/display-brightness-medium-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/lock-symbolic.svg</file>
