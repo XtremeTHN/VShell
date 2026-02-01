@@ -8,7 +8,8 @@ public class NotificationList: Astal.Window {
             namespace: "vshell-notifications",
             anchor: Astal.WindowAnchor.BOTTOM,
             layer: Astal.Layer.OVERLAY,
-            resizable: false
+            resizable: false,
+            margin_bottom: 10
         );
 
         notifd = AstalNotifd.Notifd.get_default ();
