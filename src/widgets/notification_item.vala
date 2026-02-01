@@ -21,14 +21,18 @@ public class Notification: Gtk.ListBoxRow {
     [GtkChild]
     unowned Gtk.Frame frame;
 
-    AstalNotifd.Notification noti;
+    public AstalNotifd.Notification noti;
     Gtk.EventControllerMotion motion;
 
-    public signal void shell_expire ();
+    public delegate void OnExpire (Notification n);
 
-    public Notification (AstalNotifd.Notification noti, uint shell_expire_time) {
+    OnExpire cb;
+    uint timeout;
+
+    public Notification (AstalNotifd.Notification noti, uint shell_expire_time, OnExpire cb) {
         Object ();
 
+        this.cb = cb;
         this.noti = noti;
         app_name = noti.app_name;
 
@@ -62,24 +66,29 @@ public class Notification: Gtk.ListBoxRow {
                 has_image = true;
             }
 
-        if (noti.actions.length () == 0)
-            return;
+        if (noti.actions.length () != 0)
+            noti.actions.foreach (new_action);
         
-        noti.actions.foreach (new_action);
-
-        Timeout.add (shell_expire_time, () => {
+        timeout = Timeout.add (shell_expire_time, () => {
             emit_shell_expired ();
-            return Source.REMOVE;
+            timeout = 0;
+            return false;
         });
     }
-    
+
     [GtkCallback]
     void dismiss () {
+        cancel_timeout ();
         noti.dismiss ();
     }
 
+    public void cancel_timeout () {
+        if (timeout > 0)
+            Source.remove (timeout);
+    }
+
     void emit_shell_expired () {
-        shell_expire ();
+        cb (this);
         shell_expired = true;
     }
 
