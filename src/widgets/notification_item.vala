@@ -15,6 +15,12 @@ public class Notification: Gtk.ListBoxRow {
     [GtkChild]
     unowned Gtk.Box actions_box;
 
+    [GtkChild]
+    unowned Gtk.Box middle_box;
+
+    [GtkChild]
+    unowned Gtk.Frame frame;
+
     AstalNotifd.Notification noti;
     Gtk.EventControllerMotion motion;
 
@@ -47,16 +53,13 @@ public class Notification: Gtk.ListBoxRow {
                 var image = File.new_for_path (noti.image);
                 image_paintable = Gdk.Texture.from_file (image);
             } catch (Error e) {
-                warning ("Failed to get a texture from: %s", noti.image);
-            
-                image_paintable = theme.lookup_icon (
-                    noti.image,
-                    null,
-                    Gtk.IconSize.LARGE,
-                    1,
-                    Gtk.TextDirection.RTL,
-                    Gtk.IconLookupFlags.FORCE_SYMBOLIC
-                );
+                var image = new Gtk.Image ();
+                image.set_icon_size (Gtk.IconSize.LARGE);
+                middle_box.remove (frame);
+                middle_box.prepend (image);
+                image.set_from_icon_name (noti.image);                
+            } finally {
+                has_image = true;
             }
 
         if (noti.actions.length () == 0)
