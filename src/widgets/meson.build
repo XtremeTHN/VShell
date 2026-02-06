@@ -20,4 +20,5 @@ vshell_sources += [
     'widgets/quick_menu.vala',
     'widgets/quick_backlight_slider.vala',
     'widgets/quick_tray.vala',
+    'widgets/quick_dialog.vala',
 ]
