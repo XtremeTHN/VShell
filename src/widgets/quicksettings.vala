@@ -83,9 +83,10 @@ public class Quick.Dialog: Adw.Bin {
 
 namespace Quick {
     public class PowerMenu: Menu {
-        delegate void ButtonClicked ();
-
         Logind login;
+        int seconds;
+        public delegate void ButtonClicked ();
+
         public PowerMenu () {
             Object ();
 
@@ -104,54 +105,40 @@ namespace Quick {
             stack.set_visible_child_name ("main");
         }
 
-        AlertWindow new_alert (string title_operation, string operation, Cancellable cancellable, ButtonClicked callback) {
+        void schedule (string title, ShutdownMode? mode, Utils.SimpleFunction cb) {
             var win = new AlertWindow ();
-            win.heading = title_operation;
-            win.body = @"The system will $operation automaticaly in 60 seconds";
+            win.heading = title;
+            win.body = @"The system will $(title.down ()) automatically in 60 seconds";
 
-            var cancel = new Gtk.Button ();
-            var confirm = new Gtk.Button ();
-
-            cancel.set_label ("Cancel");
-            confirm.set_label (title_operation);
+            uint time_id = 0;
+            
+            var cancel = win.add_choice ("Cancel");
+            var confirm = win.add_choice (title);
 
             cancel.clicked.connect (() => {
-                cancellable.cancel ();
-                win.close ();
-            });
-            confirm.clicked.connect (callback);
+                try {
+                    login.cancel_scheduled_shutdown ();
 
-            win.button_box.append (cancel);
-            win.button_box.append (confirm);
-
-            return win;
-        }
-
-        void schedule (string title, ShutdownMode? mode, Utils.SimpleFunction func, bool can_schedule = true) {
-            string operation = title.ascii_down ();
-            var cancellable = new Cancellable ();
-            try {
-                if (can_schedule)
-                    login.schedule_shutdown (mode, 60, cancellable);
-                else {
-                    uint id = Timeout.add_seconds (60, () => {
-                        Utils.try_func (func, @"Couldn't do $(operation)");
-                        return false;
-                    }, Priority.HIGH);
-
-                    cancellable.cancelled.connect (() => {
-                        Source.remove (id);
-                    });
+                    if (time_id > 0)
+                        Source.remove (time_id);
+                } catch (Error e) {
+                    critical ("couldn't cancel scheduled shutdown: %s", e.message);
                 }
 
-            } catch (Error e) {
-                critical ("Couldn't schedule shutdown: %s", e.message);
-            }
-
-            var win = new_alert (title, operation, cancellable, () => {
-                cancellable.cancel ();
-                Utils.try_func (func, @"Couldn't $(mode.to_string ())");
+                win.close ();
             });
+
+            confirm.clicked.connect (() => {
+                cb ();
+            });
+            
+            if (mode != null)
+                login.schedule_shutdown (mode, 60);
+            else
+                time_id = Timeout.add_seconds (60, () => {
+                    cb ();
+                    return Source.REMOVE;
+                });
 
             win.present ();
         }
@@ -161,7 +148,9 @@ namespace Quick {
         }
 
         void logout () {
-            schedule ("Log Out", null, login.log_out, false);
+            schedule ("Log Out", null, () => {
+                login.log_out ();
+            });
         }
 
         void reboot () {
@@ -215,6 +204,8 @@ namespace Quick {
 
             power_menu = new PowerMenu ();
             login = Logind.get_instance ();
+
+            login.inhibit("shutdown", "me", "no", InhibitMode.BLOCK);
 
             var key = new Gtk.EventControllerKey ();
             ovrl.add_controller (key);

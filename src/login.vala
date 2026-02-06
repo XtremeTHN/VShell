@@ -164,20 +164,11 @@ public class Logind: Object {
         return proxy.cancel_scheduled_shutdown ();
     }
 
-    public void schedule_shutdown (ShutdownMode mode, uint64 seconds, Cancellable? cancellable = null) throws Error {
+    public void schedule_shutdown (ShutdownMode mode, uint64 seconds) throws Error {
         var real_time = (int64) get_real_time ();
         var delay = (uint64) (real_time + seconds * 1000000);
         
         proxy.schedule_shutdown (mode.to_string (), delay);
-        if (cancellable == null) return;
-        cancellable.cancelled.connect (() => {
-            try {
-                if (!proxy.cancel_scheduled_shutdown ())
-                    critical ("No shutdown scheduled");
-            } catch (Error e) {
-                critical ("Couldn't cancel the scheduled shutdown: %s", e.message);
-            }
-        });
     }
 
     public UnixInputStream inhibit (string lock_types, string who, string description, InhibitMode mode) throws Error {

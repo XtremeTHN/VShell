@@ -29,6 +29,14 @@ public class AlertWindow: Astal.Window {
         back = new Background ();
     }
 
+    public Gtk.Button add_choice (string label) {
+        var btt = new Gtk.Button ();
+        btt.set_label (label);
+        button_box.append (btt);
+
+        return btt;
+    }
+
     public new void present () {
         back.present ();
         base.present ();
