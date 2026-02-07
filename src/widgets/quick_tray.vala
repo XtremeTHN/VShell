@@ -31,7 +31,11 @@ public class Quick.TrayMenu: Menu {
         var popover = new Gtk.PopoverMenu.from_model (item.menu_model);
 
         icon.set_from_gicon (item.gicon);
-        label.set_label (Utils.to_title (item.title));
+
+        if (item.title.length > 0)
+            label.set_label (Utils.to_title (item.title));
+        else
+            label.set_label ("Unknown application");
 
         contents.append (icon);
         contents.append (label);
