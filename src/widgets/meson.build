@@ -22,4 +22,5 @@ vshell_sources += [
     'widgets/quick_tray.vala',
     'widgets/notification_item.vala',
     'widgets/notification_center.vala',
+    'widgets/notification_list.vala',
 ]

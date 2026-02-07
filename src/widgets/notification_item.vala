@@ -95,7 +95,9 @@ public class Notification: Gtk.ListBoxRow {
     }
 
     string format_stamp () {
+        // FIXME fix this
         var time = noti.time;
+
         if (time < 30) {
             schedule_stamp_update (30);
             return "Just now";
