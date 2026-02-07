@@ -26,6 +26,8 @@ public class Notification: Gtk.ListBoxRow {
 
     public delegate void OnExpire (Notification n);
 
+    public bool update_stamps { get; set; default = true; }
+
     OnExpire cb;
     uint timeout;
 
@@ -38,6 +40,8 @@ public class Notification: Gtk.ListBoxRow {
 
         heading = noti.summary;
         body = noti.body;
+
+        timestamp = format_stamp ();
 
         motion = new Gtk.EventControllerMotion ();
         add_controller (motion);
@@ -76,10 +80,51 @@ public class Notification: Gtk.ListBoxRow {
         });
     }
 
-    [GtkCallback]
-    void dismiss () {
-        cancel_timeout ();
-        noti.dismiss ();
+    void schedule_stamp_update (uint seconds) {
+        if (!update_stamps) return;
+
+        Timeout.add_seconds (seconds, () => {
+            format_stamp ();
+            return Source.REMOVE;
+        });
+    }
+
+    string stamp_string (double diff, string unit) {
+        var rounded = (int) diff;
+        return @"$rounded $unit ago";
+    }
+
+    string format_stamp () {
+        var time = noti.time;
+        if (time < 30) {
+            schedule_stamp_update (30);
+            return "Just now";
+        }
+        
+        if (time < 60) {
+            schedule_stamp_update (10);
+            return stamp_string (time, "seconds");
+        }
+
+        if (time < 3600) {
+            schedule_stamp_update (60);
+            return stamp_string (time / 60, "minutes");
+        }
+
+        if (time < 86400) {
+            schedule_stamp_update (3600);
+            return stamp_string (time / 3600, "hours");
+        }
+        
+        if (time < 604800)
+            return stamp_string (time / 86400, "days");
+
+        if (time < 2592000)            
+            return stamp_string (time / 604800, "weeks");
+
+        if (time < 31536000)
+            return stamp_string (time / 2592000, "months"); // idk if this one is necessary
+        return stamp_string (time / 31536000, "years"); // this one too
     }
 
     public void cancel_timeout () {
@@ -105,6 +150,12 @@ public class Notification: Gtk.ListBoxRow {
         
         reveal_actions = false;
         emit_shell_expired ();
+    }
+
+    [GtkCallback]
+    void dismiss () {
+        cancel_timeout ();
+        noti.dismiss ();
     }
     
     [GtkCallback]
